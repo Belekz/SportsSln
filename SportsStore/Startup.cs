@@ -19,43 +19,39 @@ namespace SportsStore
         {
             Configuration = config;
         }
-
         private IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<StoreDBContext>(opts => 
+
+            services.AddDbContext<StoreDbContext>(opts => 
             { 
-                opts.UseSqlServer(Configuration["ConnectionStrings:SportStoreConnection"]);
-                services.AddScoped<IStoreRepository, EFStoreRepository>();                                    
+                opts.UseSqlServer(Configuration["ConnectionStrings:SportsStoreConnection"]);
+                                            
             });
+
+            services.AddScoped<IStoreRepository, EFStoreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
-
+                endpoints.MapControllerRoute("pagination", "Products/Page{productPage}", new { controller = "Home", action = "Index" });
+                
                 endpoints.MapDefaultControllerRoute();
-
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
             });
+
+            // Populate database with sample data
+            SeedData.EnsurePopulated(app);
         }
     }
 }
+

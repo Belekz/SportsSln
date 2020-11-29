@@ -8,8 +8,8 @@ using SportsStore.Models;
 
 namespace SportsStore.Migrations
 {
-    [DbContext(typeof(StoreDBContext))]
-    [Migration("20201123122202_Initial")]
+    [DbContext(typeof(StoreDbContext))]
+    [Migration("20201129133523_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace SportsStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(8, 2");
+                        .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("ProductID");
 
