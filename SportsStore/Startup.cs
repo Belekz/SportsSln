@@ -23,19 +23,26 @@ namespace SportsStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Views
             services.AddControllersWithViews();
 
+            // Database repo
             services.AddDbContext<StoreDbContext>(opts => 
             { 
                 opts.UseSqlServer(Configuration["ConnectionStrings:SportsStoreConnection"]);
-                                            
             });
-
             services.AddScoped<IStoreRepository, EFStoreRepository>();
+
+            // Razor pages
             services.AddRazorPages();
 
+            // Sessions 
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            // Cart service
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
