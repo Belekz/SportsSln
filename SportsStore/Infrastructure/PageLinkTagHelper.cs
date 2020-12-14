@@ -11,6 +11,7 @@ using SportsStore.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace SportsStore.Infrastructure 
+
 {[HtmlTargetElement("div", Attributes = "page-model")]
     public class PageLinkTagHelper : TagHelper
     {
@@ -33,7 +34,6 @@ namespace SportsStore.Infrastructure
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
-
 
         public override void Process(TagHelperContext context, TagHelperOutput output) 
         {
