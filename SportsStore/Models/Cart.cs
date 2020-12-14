@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace SportsStore.Models
 {
+    public class CartLine
+    {
+        public int CartlineID { get; set; }
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
+    }
+
     public class Cart
     {
-        public class CartLine
-        {
-            public int CartlineID { get; set; }
-            public Product Product { get; set; }
-            public int Quantity { get; set; }
-        }
 
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
