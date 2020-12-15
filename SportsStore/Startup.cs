@@ -34,7 +34,7 @@ namespace SportsStore
             services.AddScoped<IStoreRepository, EFStoreRepository>();
             services.AddScoped<IOrderRepository, EFOrderRepository>();
 
-            // Razor pages
+            // Razor Pages
             services.AddRazorPages();
 
             // Sessions 
@@ -44,6 +44,9 @@ namespace SportsStore
             // Cart service
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // Server side Blazor
+            services.AddServerSideBlazor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +67,13 @@ namespace SportsStore
                 endpoints.MapControllerRoute("pagination","Products/Page{productPage}",new { Controller = "Home", action = "Index", productPage = 1 });
 
                 endpoints.MapDefaultControllerRoute();
+
+                // Razor Pages
                 endpoints.MapRazorPages();
+
+                // Server side Blazor
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
 
             // Populate database with sample data
