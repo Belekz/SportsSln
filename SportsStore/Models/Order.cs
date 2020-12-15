@@ -37,5 +37,8 @@ namespace SportsStore.Models
 
         public bool GifWrap { get; set; }
 
+        [BindNever]
+        public bool Shipped { get; set; }
+
     }
 }
