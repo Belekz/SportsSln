@@ -3,6 +3,8 @@
 <h2>Check out now</h2>
 <p>Please enter your details, and we'll ship your good right away!</p>
 
+<div asp-validation-summary="All" class="text-danger"></div>
+
 <form asp-action="Checkout" method="post">
     <h3>Ship to</h3>
     <div class="form-group">
@@ -43,5 +45,9 @@
         <label>
             <input asp-for="GifWrap" />Gift wrap these items
         </label>
+    </div>
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Complete Order" />
     </div>
 </form>
